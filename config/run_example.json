@@ -1,0 +1,49 @@
+{
+  "_hinweis": "Example configuration for scripts/run_episodes.py (keys are German, see docs/glossary.md). Set 'freigabe' to true only after approving the cost limit. Keys are read from environment variables (env:NAME).",
+  "freigabe": false,
+  "freigegeben_von": "<name>",
+  "freigegeben_am": "<YYYY-MM-DD>",
+  "kostenobergrenze_usd": 5.0,
+  "harte_obergrenze_usd": 20.0,
+  "lauf_praefix": "example",
+  "fallsatz": "main_sealed",
+  "agenten": [
+    {
+      "rolle": "agent_claude",
+      "anbieter": "anthropic",
+      "modellkennung": "claude-sonnet-5-5",
+      "schluesseldatei": "env:ANTHROPIC_API_KEY",
+      "aktiv": true,
+      "aufwand": "high"
+    }
+  ],
+  "arme": [
+    "C",
+    "E",
+    "D"
+  ],
+  "module": [
+    "M1",
+    "M2",
+    "M3"
+  ],
+  "budget": {
+    "max_werkzeugaufrufe": 40,
+    "max_korrekturen_je_aktion": 2
+  },
+  "wiederholungen": {
+    "max_versuche": 3,
+    "grundverzoegerung_s": 2.0,
+    "faktor": 3.0
+  },
+  "pruefer": {
+    "anbieter": "ollama",
+    "modellkennung": "ragis-gemma-4-31b-64k",
+    "aufwand": null,
+    "auftrag_version": "v5",
+    "strukturiert": true,
+    "kontextgrenze": 65536,
+    "d_logik": "v2",
+    "basis_url": "http://<ollama-host>:<port>/v1"
+  }
+}

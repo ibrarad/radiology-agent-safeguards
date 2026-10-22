@@ -1,0 +1,84 @@
+{
+  "_description": "Run settings of the main study runs (first run of each agent). Local models were served as 64k-context variants (Ollama Modelfile: PARAMETER num_ctx 65536). Sampling used provider defaults; no fixed seed.",
+  "configurations": {
+    "C": "permissions only",
+    "E": "deterministic rules",
+    "D": "rules plus LLM checker"
+  },
+  "modules": [
+    "M1",
+    "M2",
+    "M3"
+  ],
+  "scenario_set": "48 base scenarios, 91 variants (available on request)",
+  "budget": {
+    "max_tool_calls_per_episode": 40,
+    "max_revisions_per_blocked_action": 2
+  },
+  "technical_retries": {
+    "max_attempts": 3,
+    "base_delay_s": 2.0,
+    "factor": 3.0
+  },
+  "agents": [
+    {
+      "agent": "Claude Sonnet 5.5",
+      "model_id": "claude-sonnet-5-5",
+      "access": "Anthropic Messages API",
+      "reasoning_effort": "high"
+    },
+    {
+      "agent": "GPT-6.1-Sol",
+      "model_id": "gpt-6.1-sol",
+      "access": "OpenAI Responses API",
+      "reasoning_effort": "high"
+    },
+    {
+      "agent": "GLM-5.3",
+      "model_id": "z-ai/glm-5.3",
+      "access": "OpenRouter, provider pinned to Z.AI, fallbacks disabled",
+      "reasoning_effort": "high"
+    },
+    {
+      "agent": "MiniMax M3",
+      "model_id": "minimax/minimax-m3",
+      "access": "OpenRouter, provider pinned to MiniMax, fallbacks disabled",
+      "reasoning_effort": "high"
+    },
+    {
+      "agent": "Gemma-4-31B",
+      "model_id": "ragis-gemma-4-31b-64k",
+      "access": "local (Ollama 0.34.4), unsloth/gemma-4-31B-it-GGUF Q4_K_M",
+      "reasoning_effort": "thinking enabled",
+      "context_window": 65536
+    },
+    {
+      "agent": "Qwen3.8-27B",
+      "model_id": "ragis-qwen3.8-27b-64k",
+      "access": "local (Ollama 0.34.4), unsloth/Qwen3.8-27B-GGUF UD-Q4_K_M",
+      "reasoning_effort": "default (highest of three levels)",
+      "context_window": 65536
+    }
+  ],
+  "llm_checker": {
+    "model": "Gemma-4-31B",
+    "model_id": "ragis-gemma-4-31b-64k",
+    "weights": "unsloth/gemma-4-31B-it-GGUF, Q4_K_M (4-bit)",
+    "provider": "local (Ollama 0.34.4, OpenAI-compatible endpoint)",
+    "context_window": 65536,
+    "thinking": "default",
+    "checker_prompt_version": "v5",
+    "checker_logic_version": "v2",
+    "structured_output": true
+  },
+  "repetitions": "Gemma-4-31B and Qwen3.8-27B were run three times each with unchanged settings; comparisons between agents use the first run.",
+  "alternative_checker": {
+    "description": "Exploratory repetition of configuration D for Qwen3.8-27B and Gemma-4-31B as agents",
+    "model": "Claude Sonnet 5.5",
+    "model_id": "anthropic/claude-sonnet-5.5",
+    "access": "OpenRouter, provider pinned to Anthropic, fallbacks disabled",
+    "reasoning_effort": "high",
+    "max_tokens": 16000,
+    "checker_prompt_version": "v5"
+  }
+}
