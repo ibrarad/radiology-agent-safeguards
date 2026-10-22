@@ -1,7 +1,7 @@
 # Safeguarding Agentic AI in Radiology Workflows
 
 Code and episode-level data for the study **"Safeguarding Agentic AI in Radiology Workflows: A Multimodel
-Evaluation of Rule-based and Large Language Model–based Verification"** (manuscript under review).
+Evaluation of Rule-based and Large Language Model–based Verification"**
 
 Six tool-using large language model (LLM) agents completed simulated radiology documentation tasks
 (finding communication, tumor board preparation, follow-up of incidental findings) under three safeguard
